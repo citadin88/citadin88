@@ -1,4 +1,4 @@
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Create the outer div
     var outerDiv = document.createElement('div');
     outerDiv.className = 'exvims';
@@ -9,6 +9,7 @@
     outerDiv.style.height = '7386px';
     outerDiv.style.zIndex = '2147483647';
     outerDiv.style.pointerEvents = 'none';
+    outerDiv.style.backgroundColor = 'rgba(255, 0, 255, 0.5)'; // Purple color with transparency
     
     // Create the inner div
     var innerDiv = document.createElement('div');
@@ -38,9 +39,16 @@
         innerDiv.innerHTML = 'This content might cause issues in DevTools.';
     }, 1000);
     
-    // Optional: Add an event listener to the outer div to prevent expansion
-    outerDiv.addEventListener('mouseenter', function() {
-        // Prevent interaction or expansion
-        outerDiv.style.pointerEvents = 'none';
+    // Prevent the user from expanding the div in DevTools
+    Object.defineProperty(outerDiv, 'clientHeight', {
+        get: function() {
+            return 7386;
+        }
     });
-})();
+    
+    Object.defineProperty(outerDiv, 'clientWidth', {
+        get: function() {
+            return 320;
+        }
+    });
+});
